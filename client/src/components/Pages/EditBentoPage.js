@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import BentoForm from './BentoForm'
-import { editBento, removeBento } from './actions/bento'
-import BentoList from './BentoList';
+import BentoForm from '../components/BentoForm'
+import { editBento, removeBento } from '../actions/bento'
+import Header from '../components/Header';
+
 export class EditBentoPage extends React.Component {
 
   onSubmit = (bento) => {
@@ -17,7 +18,9 @@ export class EditBentoPage extends React.Component {
 
   render () {
     return (
+
       <div>
+        <Header />
         <BentoForm 
           bento={this.props.bento}
           onSubmit = {this.onSubmit}

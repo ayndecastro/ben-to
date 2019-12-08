@@ -1,22 +1,20 @@
 import React from 'react';
-import BentoForm from './BentoForm'
+import BentoForm from '../components/BentoForm'
 import { connect } from 'react-redux';
-import { addBento } from './actions/bento'
+import { addBento } from '../actions/bento'
 
 class AddBentoPage extends React.Component {
     onSubmit = (bento) => {
         this.props.addBento(bento);
-        this.props.history.push('/')
+        console.log(bento)
     }
 
     render () {
         return (
-            <div>
-                <h1> Add Bento </h1>
                 <BentoForm 
+                    header={"Make Bento."}
                     onSubmit={this.onSubmit}
                 />
-            </div>
         )
     }
 }

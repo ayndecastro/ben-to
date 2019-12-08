@@ -1,9 +1,8 @@
 
 
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -17,14 +16,24 @@ const useStyles = makeStyles({
     width: 317,
     height: 200,
     textDecoration: 'none',
-    margin: 0
+    margin: 0,
+    ['@media (max-width:780px)']: { // eslint-disable-line no-useless-computed-key
+        width: '100%',
+        height: '300px',
+        margin: '0 auto'
+      }
   },
   media: {
-    height: 80,
+    height: 150,
     transition: 'all .2s ease-in-out',
     '&:hover': {
-        height: 150,
+        height: 80,
         transition: 'all .2s ease-in-out'
+    },
+    ['@media (max-width:780px)']: { // eslint-disable-line no-useless-computed-key
+      width: '100%',
+      height: '180px',
+      margin: '0 auto'
     }
   },
   header: {
@@ -55,8 +64,7 @@ function BentoListItem({ name, cuisine, cost, id, ingredients, img }) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
-        
+    <Card className={classes.card} square={true} elevation={1} >
         <CardMedia
           className={classes.media}
           image={img}
@@ -80,8 +88,7 @@ function BentoListItem({ name, cuisine, cost, id, ingredients, img }) {
         
         <Link to={"/edit/" + id + ""}  className={classes.edit}>
         <Button variant="outlined" className={classes.button}>
-        Edit
-        
+          Edit
         </Button>
         </Link>
       </CardActions>
