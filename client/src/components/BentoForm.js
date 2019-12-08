@@ -2,44 +2,22 @@ import React from 'react';
 import { Paper, Typography, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
-      background: 'none',
-      position: 'inherit',
-      ['@media (max-width:780px)']: { // eslint-disable-line no-useless-computed-key
-        width: '100%',
-        maxWidth: '100%',
-        margin: '0'
-      }
+      background: 'none'
       
     },
     form: {
         padding: '3.2rem',
-        height: '40rem',
-        maxWidth: '33rem',
-        ['@media (max-width:780px)']: { // eslint-disable-line no-useless-computed-key
-            width: '100%',
-            maxWidth: '100%',
-            margin: '0'
-          }
+        height: '43.5rem',
+        margin: '1.6rem',
+        maxWidth: '30rem'
     },
     header: {
-        fontSize: '30px',
-        lineHeight: '36px',
-        letterSpacing: 'normal',
-        color: '#484848',
+        fontSize: '2.4rem',
         flex: '1',
-        padding: '0 -6px',
-        fontWeight: 'bold',
-        fontFamily: 'Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif',
-        ['@media (max-width:780px)']: { // eslint-disable-line no-useless-computed-key
-            overflowWrap: "break-word",
-            margin: '1rem',
-            fontSize: '20px'
-          }
+        letterSpacing: '-2'
         
     },
     header2: {
@@ -53,14 +31,6 @@ const styles = theme => ({
     textField: {
         alignSelf: "flex-end",
         width: '5rem'
-    },
-    searchButton: {
-        marginTop: '2rem',
-        boxShadow: 0,
-        '&:hover': {
-            background: '#2ABBC7',
-            transition: 'background .5s ease-in-out'
-        }
     },
     inputCuisine: {
     },
@@ -77,7 +47,9 @@ class BentoForm extends React.Component {
 
         this.state = {
             name: props.bento ? props.bento.name : '',
+            ingredients: props.bento ? props.bento.ingredients : '',
             cuisine: props.bento ? props.bento.cuisine : '',
+            cost: props.bento ? (props.bento.cost).toString() : ''
         };
     }
 
@@ -89,6 +61,26 @@ class BentoForm extends React.Component {
     onCuisineChange = (e) => {
         const cuisine = e.target.value;
         this.setState({ cuisine })
+    }
+
+    onCostChange = (e) => {
+        const cost = e.target.value;
+
+        if(!cost || cost.match(/^\d{1,}(\.\d{0,2})?$/)) {
+            this.setState({ cost })
+        }   else {
+            console.log('no match')
+        }
+    }
+
+    onIngredientsChange = (e) => {
+        const ingredients = e.target.value;
+        this.setState({ ingredients })
+    }
+
+    onImgChange = (e) => {
+        const img = e.target.value;
+        this.setState({ img })
     }
 
     onSubmit = (e) => {
@@ -110,6 +102,30 @@ class BentoForm extends React.Component {
             }
         }
 
+        if(this.state.currentQuestion === 'cost') {
+            if(this.state.cost.length >= 1) {
+                this.setState({
+                    currentQuestion: 'ingredients'
+                })
+            }
+        }
+
+        if(this.state.currentQuestion === 'ingredients') {
+            if(this.state.ingredients.length >= 1) {
+                this.setState({
+                    currentQuestion: 'img'
+                })
+            }
+        }
+
+        if(this.state.currentQuestion === 'img') {
+            if(this.state.img.length >= 1) {
+                this.setState({
+                    currentQuestion: 'none'
+                })
+            }
+        }
+
         if(this.state.currentQuestion === 'none') {
             this.setState(() => ({ error: ''}))
             this.props.onSubmit({
@@ -126,7 +142,7 @@ class BentoForm extends React.Component {
     render () {
         
         return (
-            <Paper elevation={3}>
+            <div>
                 <form onSubmit={this.onSubmit}>
                 <Paper  className={this.props.classes.form} square={true} elevation={21}>
                 <Grid container spacing={0}>
@@ -139,7 +155,8 @@ class BentoForm extends React.Component {
                     <Grid item xs={12}>
                         <TextField
                         type="text"
-                        label="Search by Dish Name"
+                        label="BENTO NAME"
+                        autoFocus
                         fullWidth
                         margin="normal"
                         variant="standard"
@@ -149,42 +166,77 @@ class BentoForm extends React.Component {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={8}>
                         <TextField
-                        type="text"   
+                        type="text"
+                        autoFocus   
                         InputProps={{
                             classes: {
                             input: this.props.classes.input,
                             },
                         }}
-                        fullWidth
                         margin="normal"
                         variant="standard"
-                        label="Search by Cuisine"
+                        label="CUISINE"
                         className={this.props.classes.inputCuisine}
                         value = {this.state.cuisine}
                         onChange={this.onCuisineChange}
                         />
                     </Grid>
-                    <Grid item xs={7}></Grid>
+                    
+                    <Grid item xs={4}>
+                        <TextField
+                        type="text"
+                        label="COST"
+                        autoFocus
+                        margin="normal"
+                        variant="standard"
+                        className={this.props.classes.inputCost}
+                        value={this.state.cost}
+                        onChange={this.onCostChange}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                        margin="normal"
+                        variant="standard"
+                        fullWidth
+                        label="INGREDIENTS" 
+                        className={this.props.classes.input}   
+                        value={this.state.ingredients}
+                        onChange={this.onIngredientsChange}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                        type="text"
+                        margin="normal"
+                        variant="standard"
+                        fullWidth
+                        label="IMAGE URL"
+                        className={this.props.classes.input}
+                        value={this.state.img}
+                        onChange={this.onImgChange}
+                        />
+                    </Grid>
 
                     <Grid 
-                    mt={3}
                     alignSelf="flex-end"
-                    item xs={5}>
-
-                    <Link to={this.state.name ? `/market/${this.state.name}` : this.state.cuisine ? `/market/${this.state.cuisine}` : `/home`} >
-                    <Button
-                    variant="contained"
-                    elevation={0}
-                    className={this.props.classes.searchButton}
-                    > Search Bento </Button>
-                    </Link>
+                    item xs={12}>
+                    <button
+                    hidden={!this.props.remove}
+                    onClick={this.props.onRemovebento}>
+                        Remove Bento
+                    </button>
+                
+                <button> Submit Bento </button>
                     </Grid>
                 </Grid>
                 </Paper>
                 </form>
-            </Paper>
+            </div>
         )
     }
 }
