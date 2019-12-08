@@ -1,10 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import AppRouter from './components/routes/AppRouter';
-  import configureStore from './components/store/configureStore';
+import configureStore from './components/store/configureStore';
 import { addBento } from './components/actions/bento';
 import getVisibleBento from './components/selectors/bento';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import 'normalize.css/normalize.css';
 import './styles/styles.css'
 
@@ -22,9 +21,7 @@ function App() {
   return (
     <div className="App">
     <Provider store={store}> 
-      <CssBaseline>
       <AppRouter />
-      </CssBaseline>
     </Provider>
     </div>
   );

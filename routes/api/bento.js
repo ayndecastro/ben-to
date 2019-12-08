@@ -237,6 +237,11 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
       return res.status(404).json({ msg: "Comment not found" });
     }
 
+    //make sure that whoever is deleting the comment is the user who created the comment
+    if (bento.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not Authorized" });
+    }
+
     const removeIndex = bento.comment
       .map(cmnt => cmnt.user.toString())
       .indexOf(req.user.id);
