@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const BentoSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "user"
+    ref: 'user'
   },
   avatar: {
     type: String
@@ -31,6 +31,10 @@ const BentoSchema = new Schema({
     type: Number,
     required: true
   },
+  amount: {
+    type: Number,
+    required: true
+  },
   image: {
     type: String,
     required: true
@@ -39,7 +43,7 @@ const BentoSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: "user"
+        ref: 'user'
       },
       text: {
         type: String,
@@ -58,7 +62,7 @@ const BentoSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: "user"
+        ref: 'user'
       }
     }
   ],
@@ -68,4 +72,4 @@ const BentoSchema = new Schema({
   }
 });
 
-module.exports = Bento = mongoose.model("bento", BentoSchema);
+module.exports = Bento = mongoose.model('bento', BentoSchema);

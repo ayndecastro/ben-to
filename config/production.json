@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://ayn:Password@cluster0-pjtlt.mongodb.net/test",
+  "jwtSecret": "secretToken",
+  "githubClientId": "a7217c2c81b45c383dd8",
+  "githubSecret": "6ff50a5f67e2d1467073306470cd05c578bc7e7a"
+}
