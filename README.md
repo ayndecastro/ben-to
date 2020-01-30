@@ -13,6 +13,6 @@
 
 ### Screenshots
 
-    ![LANDING_SAMPLE](./client/public/Landing_sample.png)
-    ![DASHBOARD_SAMPLE](./client/public/Dashboard_sample.png)
-    ![BENTO_LIST_SAMPLE](./client/public/Bento_list.png)
+![LANDING_SAMPLE](./client/public/Landing_sample.png)
+![DASHBOARD_SAMPLE](./client/public/Dashboard_sample.png)
+![BENTO_LIST_SAMPLE](./client/public/Bento_list.png)
